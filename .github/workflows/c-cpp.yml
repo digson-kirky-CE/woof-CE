@@ -1,0 +1,25 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "testing" ]
+  pull_request:
+    branches: [ "testing" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-oldlts
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: configure
+      run: cd zwn && bash setup.sh
+    - name: make
+      run: cd workdir && bash build-sfs.sh
+    - name: make check
+      run: ls
+    - name: make distcheck
+      run: ls
+    - name: make end
+      run: bash build-iso.sh
